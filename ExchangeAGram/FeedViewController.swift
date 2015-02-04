@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class FeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
  
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,6 +34,34 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func snapBarButtonItemPressed(sender: UIBarButtonItem) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            var cameraController = UIImagePickerController()
+            cameraController.delegate = self
+            cameraController.sourceType = UIImagePickerControllerSourceType.Camera
+            let mediaTypes:[AnyObject] = [kUTTypeImage]
+            cameraController.mediaTypes = mediaTypes
+            cameraController.allowsEditing = false
+            presentViewController(cameraController, animated: true, completion: nil)
+        }
+        else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            var cameraController =  UIImagePickerController()
+            cameraController.delegate = self
+            cameraController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+//            let mediaTypes:[AnyObject] = [kUTTypeImage]
+            cameraController.mediaTypes = [kUTTypeImage]
+            cameraController.allowsEditing = false
+            presentViewController(cameraController, animated: true, completion: nil)
+        }
+        else {
+            var alertController = UIAlertController(title: "Warning", message: "Your device does not support the Camera or Photo Library", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    //UIImagePickerController Delegate
 
     //UICollectionView Delegate
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -44,8 +73,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-    @IBAction func snapBarButtonItemPressed(sender: UIBarButtonItem) {
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as FeedCell
+        return cell
     }
 }
