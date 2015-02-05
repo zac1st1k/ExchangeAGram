@@ -70,15 +70,15 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     //UIImagePickerController Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         var image = info[UIImagePickerControllerOriginalImage] as UIImage
-//        let thumbNail = imageWithImage(image, scaledToSize: CGSizeMake(150, 150))
+        let thumbNail = imageWithImage(image, scaledToSize: CGSizeMake(150, 150))
         let imageData = UIImageJPEGRepresentation(image, 1.0)
-//        let thumbNailData = UIImageJPEGRepresentation(thumbNail, 0.8)
+        let thumbNailData = UIImageJPEGRepresentation(thumbNail, 0.8)
 
         let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
         let entityDescription = NSEntityDescription.entityForName("FeedItem", inManagedObjectContext: managedObjectContext)!
         let feedItem = FeedItem(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
         
-        feedItem.image = imageData
+        feedItem.image = thumbNailData
         feedItem.caption = image.description
 //        feedItem.thumbNail = thumbNailData
         
@@ -112,5 +112,11 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         navigationController?.pushViewController(filterVC, animated: true)
     }
     
-
+    func imageWithImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
 }
