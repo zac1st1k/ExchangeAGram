@@ -15,7 +15,8 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     var filterCell: FilterCell!
     let kIntensity = 0.7
     var context:CIContext = CIContext(options: nil)
-
+    var filters:[CIFilter] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +33,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        filters = photoFilters()
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,8 +61,18 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-//        var image = UIImage(data: thisFeedItem.image)
-        cell.imageView.image = filteredImageFromImage(thisFeedItem.image, filter: photoFilters()[indexPath.row])
+        cell.imageView.image = UIImage(named: "Placeholder")
+
+        //GCD
+        let filterQueue:dispatch_queue_t = dispatch_queue_create("filter queue", nil)
+        dispatch_async(filterQueue, { () -> Void in
+            let filteredImage = self.filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                cell.imageView.image = filteredImage
+                cell.label.text = self.filters[indexPath.row].name()
+            })
+        })
+        
         return cell
     }
     
@@ -102,5 +114,4 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         return finalImage
     }
-
 }
