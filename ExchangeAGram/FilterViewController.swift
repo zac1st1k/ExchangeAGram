@@ -14,7 +14,8 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     var collectionView:UICollectionView!
     var filterCell: FilterCell!
     let kIntensity = 0.7
-    
+    var context:CIContext = CIContext(options: nil)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,7 +31,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         println(FilterCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         
     }
 
@@ -54,12 +54,13 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         return 1
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return photoFilters().count
+
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-        var image = UIImage(data: thisFeedItem.image)
-        cell.imageView.image = image
+//        var image = UIImage(data: thisFeedItem.image)
+        cell.imageView.image = filteredImageFromImage(thisFeedItem.image, filter: photoFilters()[indexPath.row])
         return cell
     }
     
@@ -67,7 +68,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     func photoFilters () -> [CIFilter] {
         let blur = CIFilter(name: "CIGaussianBlur")
         let instant = CIFilter(name: "CIPhotoEffectInstant")
-        let noir = CIFilter(name: "PhotoEffectNoir")
+        let noir = CIFilter(name: "CIPhotoEffectNoir")
         let transfer = CIFilter(name: "CIPhotoEffectTransfer")
         let unsharpen = CIFilter(name: "CIUnsharpMask")
         let monochrome = CIFilter(name: "CIColorMonochrome")
@@ -88,6 +89,18 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         vignette.setValue(kIntensity * 30, forKey: kCIInputRadiusKey)
         
         return [blur, instant, noir, transfer, unsharpen, monochrome, colorControls, sepia, colorClamp, composite, vignette]
+        
+    }
+    
+    func filteredImageFromImage (imageData: NSData, filter: CIFilter) -> UIImage {
+        
+        filter.setValue(CIImage(data: imageData), forKey: kCIInputImageKey)
+        let filteredImage = filter.outputImage
+        
+        let cgImage:CGImageRef = context.createCGImage(filteredImage, fromRect: filteredImage.extent())
+        let finalImage = UIImage(CGImage: cgImage)!
+        
+        return finalImage
     }
 
 }
