@@ -17,6 +17,7 @@
 		11B410271A8118490066E99B /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B410261A8118490066E99B /* FeedViewController.swift */; };
 		11B410291A825C520066E99B /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B410281A825C520066E99B /* FeedItem.swift */; };
 		11B4102B1A826BF60066E99B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4102A1A826BF60066E99B /* FilterViewController.swift */; };
+		11B4102D1A833A420066E99B /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B4102C1A833A420066E99B /* FilterCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		11B410261A8118490066E99B /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		11B410281A825C520066E99B /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		11B4102A1A826BF60066E99B /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		11B4102C1A833A420066E99B /* FilterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				116509E21A8116880021C8F8 /* FeedCell.swift */,
 				11B410281A825C520066E99B /* FeedItem.swift */,
 				11B4102A1A826BF60066E99B /* FilterViewController.swift */,
+				11B4102C1A833A420066E99B /* FilterCell.swift */,
 				116509C41A81102C0021C8F8 /* Main.storyboard */,
 				116509C71A81102C0021C8F8 /* Images.xcassets */,
 				116509C91A81102C0021C8F8 /* LaunchScreen.xib */,
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B4102D1A833A420066E99B /* FilterCell.swift in Sources */,
 				11B4102B1A826BF60066E99B /* FilterViewController.swift in Sources */,
 				116509BE1A81102C0021C8F8 /* AppDelegate.swift in Sources */,
 				116509E31A8116880021C8F8 /* FeedCell.swift in Sources */,
