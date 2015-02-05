@@ -101,4 +101,10 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         cell.captionLabel.text = thisItem.caption
         return cell
     }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let thisItem = feedArray[indexPath.row] as FeedItem
+        var filterVC = FilterViewController()
+        filterVC.thisFeedItem = thisItem
+        navigationController?.pushViewController(filterVC, animated: false)
+    }
 }
