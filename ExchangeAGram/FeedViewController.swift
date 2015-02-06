@@ -9,6 +9,7 @@
 import UIKit
 import MobileCoreServices
 import CoreData
+import ImageIO
 
 
 class FeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -69,18 +70,18 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     //UIImagePickerController Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        var image = info[UIImagePickerControllerOriginalImage] as UIImage
-        let thumbNail = imageWithImage(image, scaledToSize: CGSizeMake(150, 150))
+        let image = info[UIImagePickerControllerOriginalImage] as UIImage
         let imageData = UIImageJPEGRepresentation(image, 1.0)
-        let thumbNailData = UIImageJPEGRepresentation(thumbNail, 0.8)
+        let thumbNail = imageWithImage(image, scaledToSize: CGSizeMake(image.size.width/10, image.size.height/10))
+        let thumbNailData = UIImageJPEGRepresentation(thumbNail, 1.0)
 
         let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
         let entityDescription = NSEntityDescription.entityForName("FeedItem", inManagedObjectContext: managedObjectContext)!
         let feedItem = FeedItem(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
         
-        feedItem.image = thumbNailData
+        feedItem.image = imageData
         feedItem.caption = image.description
-//        feedItem.thumbNail = thumbNailData
+        feedItem.thumbNail = thumbNailData
         
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
         feedArray.append(feedItem)
@@ -101,7 +102,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as FeedCell
         let thisItem = feedArray[indexPath.row] as FeedItem
-        cell.imageView.image = UIImage(data: thisItem.image)
+        cell.imageView.image = UIImage(data: thisItem.thumbNail)
         cell.captionLabel.text = thisItem.caption
         return cell
     }
@@ -109,13 +110,15 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         let thisItem = feedArray[indexPath.row] as FeedItem
         var filterVC = FilterViewController()
         filterVC.thisFeedItem = thisItem
+        filterVC.tappedCellNumber = indexPath.row
         navigationController?.pushViewController(filterVC, animated: true)
     }
     
-    func imageWithImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage{
+    func imageWithImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
-        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        image.drawInRect(CGRect(origin: CGPointZero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
     }

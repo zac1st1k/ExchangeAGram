@@ -16,6 +16,11 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     let kIntensity = 0.7
     var context:CIContext = CIContext(options: nil)
     var filters:[CIFilter] = []
+    var tappedCellNumber: Int!
+    
+//    var tempImageArray:[NSData] = []
+    let tmp = NSTemporaryDirectory()
+    let placeHolderImage = UIImage(named: "Placeholder")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +34,10 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         collectionView.backgroundColor = UIColor.whiteColor()
         
         collectionView.registerClass(FilterCell.self, forCellWithReuseIdentifier: "MyCell")
-        println(FilterCell.self)
         collectionView.dataSource = self
         collectionView.delegate = self
         
+//        tempImageArray = [NSData](count: photoFilters().count, repeatedValue: thisFeedItem.thumbNail)
         filters = photoFilters()
     }
 
@@ -61,12 +66,15 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-        cell.imageView.image = UIImage(named: "Placeholder")
-
+    
+        cell.imageView.image = placeHolderImage
+        
         //GCD
         let filterQueue:dispatch_queue_t = dispatch_queue_create("filter queue", nil)
         dispatch_async(filterQueue, { () -> Void in
-            let filteredImage = self.filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+//        let filteredImage = self.filteredImageFromImage(self.thisFeedItem.thumbNail, filter: self.filters[indexPath.row])
+            // Caching
+            let filteredImage = self.getCachedImage(indexPath.row)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 cell.imageView.image = filteredImage
                 cell.label.text = self.filters[indexPath.row].name()
@@ -113,5 +121,34 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         let finalImage = UIImage(CGImage: cgImage)!
         
         return finalImage
+    }
+    //Caching Functions
+    func cacheImage (rowNumber: Int) {
+        let image = UIImage(data: thisFeedItem.image)
+        let fileName = "\(tappedCellNumber)\(rowNumber)"
+        println("cache \(fileName)")
+        let uniquePath = tmp.stringByAppendingPathComponent(fileName)
+        if !NSFileManager.defaultManager().fileExistsAtPath(fileName) {
+            let data = self.thisFeedItem.thumbNail
+            let filter = self.filters[rowNumber]
+            let image = filteredImageFromImage(data, filter: filter)
+            UIImageJPEGRepresentation(image, 1.0).writeToFile(uniquePath, atomically: true)
+        }
+    }
+    
+    func getCachedImage (rowNumber: Int) -> UIImage {
+        let image = UIImage(data: thisFeedItem.image)
+        let fileName = "\(tappedCellNumber)\(rowNumber)"
+        println("get \(fileName)")
+        let uniquePath = tmp.stringByAppendingPathComponent(fileName)
+        var Cachedimage:UIImage
+        if NSFileManager.defaultManager().fileExistsAtPath(uniquePath) {
+            Cachedimage = UIImage(contentsOfFile: uniquePath)!
+        }
+        else {
+            self.cacheImage(rowNumber)
+            Cachedimage = UIImage(contentsOfFile: uniquePath)!
+        }
+        return Cachedimage
     }
 }

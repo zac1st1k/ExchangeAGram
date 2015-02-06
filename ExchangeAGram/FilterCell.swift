@@ -16,11 +16,13 @@ class FilterCell: UICollectionViewCell {
         super.init(frame: frame)
         
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
         contentView.addSubview(imageView)
-        label = UILabel(frame: CGRect(x: 0, y: 50, width: frame.size.width, height: frame.size.height))
+        label = UILabel(frame: CGRect(x: 20, y: 50, width: frame.size.width - 40, height: frame.size.height))
         label.textAlignment = NSTextAlignment.Center
         label.textColor = UIColor.whiteColor()
         label.adjustsFontSizeToFitWidth = true
+//        label.numberOfLines = 0
         label.minimumScaleFactor = 0.5
         imageView.addSubview(label)
     }

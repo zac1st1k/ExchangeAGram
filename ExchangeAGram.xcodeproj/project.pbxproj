@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		116125491A836D5A005A3A9E /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116125481A836D5A005A3A9E /* FeedItem.swift */; };
+		1161254B1A837431005A3A9E /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161254A1A837431005A3A9E /* FeedItem.swift */; };
 		116509BE1A81102C0021C8F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116509BD1A81102C0021C8F8 /* AppDelegate.swift */; };
 		116509C11A81102C0021C8F8 /* ExchangeAGram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 116509BF1A81102C0021C8F8 /* ExchangeAGram.xcdatamodeld */; };
 		116509C61A81102C0021C8F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 116509C41A81102C0021C8F8 /* Main.storyboard */; };
@@ -31,7 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		116125481A836D5A005A3A9E /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		1161254A1A837431005A3A9E /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		116509B81A81102C0021C8F8 /* ExchangeAGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeAGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		116509BC1A81102C0021C8F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		116509BD1A81102C0021C8F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 				116509BD1A81102C0021C8F8 /* AppDelegate.swift */,
 				11B410261A8118490066E99B /* FeedViewController.swift */,
 				116509E21A8116880021C8F8 /* FeedCell.swift */,
-				116125481A836D5A005A3A9E /* FeedItem.swift */,
+				1161254A1A837431005A3A9E /* FeedItem.swift */,
 				11B4102A1A826BF60066E99B /* FilterViewController.swift */,
 				11B4102C1A833A420066E99B /* FilterCell.swift */,
 				116509C41A81102C0021C8F8 /* Main.storyboard */,
@@ -232,7 +232,7 @@
 				116509BE1A81102C0021C8F8 /* AppDelegate.swift in Sources */,
 				116509E31A8116880021C8F8 /* FeedCell.swift in Sources */,
 				11B410271A8118490066E99B /* FeedViewController.swift in Sources */,
-				116125491A836D5A005A3A9E /* FeedItem.swift in Sources */,
+				1161254B1A837431005A3A9E /* FeedItem.swift in Sources */,
 				116509C11A81102C0021C8F8 /* ExchangeAGram.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,7 +309,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -346,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
