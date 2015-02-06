@@ -60,6 +60,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="QF1-LO-rIh">
+                        <barButtonItem key="leftBarButtonItem" title="Profile" id="fyt-qS-wAb"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Cy5-5F-ntP">
                             <connections>
                                 <action selector="snapBarButtonItemPressed:" destination="BYZ-38-t0r" id="rgX-tF-nKL"/>
@@ -69,11 +70,51 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="Mrk-Q7-jGg" id="2dq-DE-pTe"/>
+                        <segue destination="Zyx-K9-88n" kind="show" identifier="profileSegue" id="8eV-86-nXj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="675" y="386"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="JMZ-5o-iQi">
+            <objects>
+                <viewController id="Zyx-K9-88n" customClass="ProfileViewController" customModule="ExchangeAGram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uka-n9-Yp5"/>
+                        <viewControllerLayoutGuide type="bottom" id="8dQ-Kl-pjJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GGG-TC-lcy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0u-IQ-Umr">
+                                <rect key="frame" x="85" y="209" width="150" height="150"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvy-kK-YjV">
+                                <rect key="frame" x="139" y="384" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hem-Ir-pir" customClass="FBLoginView">
+                                <rect key="frame" x="80" y="472" width="160" height="20"/>
+                                <color key="backgroundColor" red="0.30826595279720281" green="0.5271798513985998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="fbLoginView" destination="hem-Ir-pir" id="uLF-vf-BYm"/>
+                        <outlet property="imageView" destination="u0u-IQ-Umr" id="X83-CM-q8v"/>
+                        <outlet property="label" destination="jvy-kK-YjV" id="N00-qc-QoW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ztg-n6-sJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1071" y="386"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zDF-ac-zGn">

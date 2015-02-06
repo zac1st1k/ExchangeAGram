@@ -57,6 +57,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     */
     
+    //UICollectionView Data Source
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -82,6 +83,17 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         })
         
         return cell
+    }
+    //UICollectionView Delegate
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let filteredImage = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        let imageData = UIImageJPEGRepresentation(filteredImage, 1.0)
+        thisFeedItem.image = imageData
+        let filteredthumbNail = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        let thumbNailData = UIImageJPEGRepresentation(filteredthumbNail, 1.0)
+        thisFeedItem.thumbNail = thumbNailData
+        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+        navigationController?.popViewControllerAnimated(true)
     }
     
     //Helper Function
