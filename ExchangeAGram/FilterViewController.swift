@@ -46,7 +46,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -67,7 +66,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-    
+        println(indexPath)
         cell.imageView.image = placeHolderImage
         
         //GCD
@@ -137,6 +136,21 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
         navigationController?.popViewControllerAnimated(true)
     }
+    func shareToFacebook (indexPath: NSIndexPath) {
+        let filterImage = self.filteredImageFromImage(self.thisFeedItem.image, filter: self.filters[indexPath.row])
+        let photos:NSArray = [filterImage]
+        var params = FBPhotoParams()
+        params.photos = photos
+        FBDialogs.presentShareDialogWithPhotoParams(params, clientState: nil) { (call, result, error) -> Void in
+            if (result? != nil) {
+                println(result)
+            }
+            else {
+                println(error)
+            }
+        }
+        
+    }
     
     // MARK: - Caching Functions
     func cacheImage (rowNumber: Int) {
@@ -183,7 +197,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         let photoAction = UIAlertAction(title: "Post Photo to Facebook with Caption", style: UIAlertActionStyle.Destructive) { (UIAlertAction) -> Void in
-    
+            self.shareToFacebook(indexPath)
         }
         alert.addAction(photoAction)
         
@@ -192,7 +206,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         alert.addAction(saveFilterAction)
         alert.addAction(UIAlertAction(title: "Select Another Filter", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
-            
         })
 
         presentViewController(alert, animated: true, completion: nil)
