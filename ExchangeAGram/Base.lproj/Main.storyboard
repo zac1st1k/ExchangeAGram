@@ -60,7 +60,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="QF1-LO-rIh">
-                        <barButtonItem key="leftBarButtonItem" title="Profile" id="fyt-qS-wAb"/>
+                        <barButtonItem key="leftBarButtonItem" title="Profile" id="fyt-qS-wAb">
+                            <connections>
+                                <action selector="profileTapped:" destination="BYZ-38-t0r" id="KfD-6I-6Il"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Cy5-5F-ntP">
                             <connections>
                                 <action selector="snapBarButtonItemPressed:" destination="BYZ-38-t0r" id="rgX-tF-nKL"/>
@@ -92,16 +96,16 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0u-IQ-Umr">
                                 <rect key="frame" x="85" y="209" width="150" height="150"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvy-kK-YjV">
-                                <rect key="frame" x="139" y="384" width="42" height="21"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hem-Ir-pir" customClass="FBLoginView">
+                                <rect key="frame" x="46" y="471" width="229" height="54"/>
+                                <color key="backgroundColor" red="0.30826595279720281" green="0.5271798513985998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvy-kK-YjV">
+                                <rect key="frame" x="16" y="367" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hem-Ir-pir" customClass="FBLoginView">
-                                <rect key="frame" x="80" y="472" width="160" height="20"/>
-                                <color key="backgroundColor" red="0.30826595279720281" green="0.5271798513985998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

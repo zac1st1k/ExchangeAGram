@@ -128,4 +128,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         UIGraphicsEndImageContext()
         return newImage
     }
+    @IBAction func profileTapped(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("profileSegue", sender: nil)
+    }
 }
