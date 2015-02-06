@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController, FBLoginViewDelegate {
         self.fbLoginView.delegate = self
         self.fbLoginView.readPermissions = ["public_profile", "publish_actions"]
         imageView.hidden = true
-        label.hidden = true
+//        label.hidden = true
     }
     
     func loginViewShowingLoggedInUser(loginView: FBLoginView!) {

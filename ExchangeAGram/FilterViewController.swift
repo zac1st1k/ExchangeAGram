@@ -57,7 +57,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     */
     
-    //UICollectionView Data Source
+    // MARK: - UICollectionView Data Source
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -84,19 +84,12 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         return cell
     }
-    //UICollectionView Delegate
+    // MARK: - UICollectionView Delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let filteredImage = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
-        let imageData = UIImageJPEGRepresentation(filteredImage, 1.0)
-        thisFeedItem.image = imageData
-        let filteredthumbNail = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
-        let thumbNailData = UIImageJPEGRepresentation(filteredthumbNail, 1.0)
-        thisFeedItem.thumbNail = thumbNailData
-        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
-        navigationController?.popViewControllerAnimated(true)
+        createUIAlertController(indexPath)
     }
     
-    //Helper Function
+    // MARK: - Helper Function
     func photoFilters () -> [CIFilter] {
         let blur = CIFilter(name: "CIGaussianBlur")
         let instant = CIFilter(name: "CIPhotoEffectInstant")
@@ -134,7 +127,18 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         return finalImage
     }
-    //Caching Functions
+    func saveFilerToCoreData (indexPath: NSIndexPath) {
+        let filteredImage = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        let imageData = UIImageJPEGRepresentation(filteredImage, 1.0)
+        thisFeedItem.image = imageData
+        let filteredthumbNail = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        let thumbNailData = UIImageJPEGRepresentation(filteredthumbNail, 1.0)
+        thisFeedItem.thumbNail = thumbNailData
+        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: - Caching Functions
     func cacheImage (rowNumber: Int) {
         let image = UIImage(data: thisFeedItem.image)
         let fileName = "\(tappedCellNumber)\(rowNumber)"
@@ -162,5 +166,35 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
             Cachedimage = UIImage(contentsOfFile: uniquePath)!
         }
         return Cachedimage
+    }
+    
+    // MARK: - UIAlertController Helper Functions
+    func createUIAlertController (indexPath: NSIndexPath) {
+        let alert = UIAlertController(title: "Photo Options", message: "Please choose an option", preferredStyle: UIAlertControllerStyle.Alert)
+
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.placeholder = "Add Caption!"
+            textField.secureTextEntry = false
+        }
+        var text:String
+        let textField = alert.textFields![0] as UITextField
+        if textField.text != nil {
+            text = textField.text
+        }
+        
+        let photoAction = UIAlertAction(title: "Post Photo to Facebook with Caption", style: UIAlertActionStyle.Destructive) { (UIAlertAction) -> Void in
+    
+        }
+        alert.addAction(photoAction)
+        
+        let saveFilterAction = UIAlertAction(title: "Save Filter without Posting on Facebook", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+            self.saveFilerToCoreData(indexPath)
+        }
+        alert.addAction(saveFilterAction)
+        alert.addAction(UIAlertAction(title: "Select Another Filter", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in
+            
+        })
+
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
