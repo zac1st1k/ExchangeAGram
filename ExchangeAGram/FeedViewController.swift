@@ -9,13 +9,14 @@
 import UIKit
 import MobileCoreServices
 import CoreData
-import ImageIO
+import MapKit
 
 
-class FeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
  
     @IBOutlet weak var collectionView: UICollectionView!
     var feedArray: [AnyObject] = []
+    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,16 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let context:NSManagedObjectContext = appDelegate.managedObjectContext!
         feedArray = context.executeFetchRequest(request, error: nil)!
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 100
+        locationManager.requestAlwaysAuthorization()
+
+        locationManager.startUpdatingLocation()
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,6 +59,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     */
     
+    //MARK: - IBActions
     @IBAction func snapBarButtonItemPressed(sender: UIBarButtonItem) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             var cameraController = UIImagePickerController()
@@ -73,8 +85,11 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
             presentViewController(alertController, animated: true, completion: nil)
         }
     }
+    @IBAction func profileTapped(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("profileSegue", sender: nil)
+    }
     
-    //UIImagePickerController Delegate
+    //MARK: - UIImagePickerController Delegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         let image = info[UIImagePickerControllerOriginalImage] as UIImage
         let imageData = UIImageJPEGRepresentation(image, 1.0)
@@ -96,7 +111,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    //UICollectionView Delegate
+    //MARK: - UICollectionView Delegate
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -119,7 +134,12 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         filterVC.tappedCellNumber = indexPath.row
         navigationController?.pushViewController(filterVC, animated: true)
     }
+    //MARK: - CLLocationManager Delegate
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        println("locations = \(locations)")
+    }
     
+    //MARK: - Helper Methods
     func imageWithImage(image: UIImage, scaledToSize newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
 //        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
@@ -128,7 +148,5 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         UIGraphicsEndImageContext()
         return newImage
     }
-    @IBAction func profileTapped(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("profileSegue", sender: nil)
-    }
+
 }

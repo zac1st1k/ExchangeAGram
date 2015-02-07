@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="675" y="386"/>
+            <point key="canvasLocation" x="687" y="386"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="JMZ-5o-iQi">
@@ -106,6 +106,16 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhg-O9-FdR">
+                                <rect key="frame" x="145" y="103" width="31" height="30"/>
+                                <state key="normal" title="Map">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapTapped:" destination="Zyx-K9-88n" eventType="touchUpInside" id="jaK-he-Pk8"/>
+                                    <segue destination="wZW-mB-dcQ" kind="show" identifier="mapSegue" id="Zih-St-Bkn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -119,6 +129,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztg-n6-sJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1071" y="386"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="TeF-aD-nm5">
+            <objects>
+                <viewController id="wZW-mB-dcQ" customClass="MapViewController" customModule="ExchangeAGram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tet-Ia-oF4"/>
+                        <viewControllerLayoutGuide type="bottom" id="et9-m2-hwx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cLL-qi-KzP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5gN-qU-rQI">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="mapView" destination="5gN-qU-rQI" id="g5M-aw-K8d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fb9-2L-5d5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1458" y="386"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zDF-ac-zGn">
@@ -137,7 +174,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nbT-2Y-QJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="286" y="386"/>
+            <point key="canvasLocation" x="301" y="386"/>
         </scene>
     </scenes>
 </document>

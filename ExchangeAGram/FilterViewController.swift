@@ -66,7 +66,6 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MyCell", forIndexPath: indexPath) as FilterCell
-        println(indexPath)
         cell.imageView.image = placeHolderImage
         
         //GCD
@@ -126,13 +125,14 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         return finalImage
     }
-    func saveFilerToCoreData (indexPath: NSIndexPath) {
+    func saveFilerToCoreData (indexPath: NSIndexPath, caption: String) {
         let filteredImage = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
         let imageData = UIImageJPEGRepresentation(filteredImage, 1.0)
         thisFeedItem.image = imageData
         let filteredthumbNail = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
         let thumbNailData = UIImageJPEGRepresentation(filteredthumbNail, 1.0)
         thisFeedItem.thumbNail = thumbNailData
+        thisFeedItem.caption = caption
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
         navigationController?.popViewControllerAnimated(true)
     }
@@ -156,7 +156,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     func cacheImage (rowNumber: Int) {
         let image = UIImage(data: thisFeedItem.image)
         let fileName = "\(tappedCellNumber)\(rowNumber)"
-        println("cache \(fileName)")
+//        println("cache \(fileName)")
         let uniquePath = tmp.stringByAppendingPathComponent(fileName)
         if !NSFileManager.defaultManager().fileExistsAtPath(fileName) {
             let data = self.thisFeedItem.thumbNail
@@ -169,7 +169,7 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
     func getCachedImage (rowNumber: Int) -> UIImage {
         let image = UIImage(data: thisFeedItem.image)
         let fileName = "\(tappedCellNumber)\(rowNumber)"
-        println("get \(fileName)")
+//        println("get \(fileName)")
         let uniquePath = tmp.stringByAppendingPathComponent(fileName)
         var Cachedimage:UIImage
         if NSFileManager.defaultManager().fileExistsAtPath(uniquePath) {
@@ -190,19 +190,15 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
             textField.placeholder = "Add Caption!"
             textField.secureTextEntry = false
         }
-        var text:String
-        let textField = alert.textFields![0] as UITextField
-        if textField.text != nil {
-            text = textField.text
-        }
         
         let photoAction = UIAlertAction(title: "Post Photo to Facebook with Caption", style: UIAlertActionStyle.Destructive) { (UIAlertAction) -> Void in
             self.shareToFacebook(indexPath)
         }
         alert.addAction(photoAction)
         
+        var text = (alert.textFields![0] as UITextField).text
         let saveFilterAction = UIAlertAction(title: "Save Filter without Posting on Facebook", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
-            self.saveFilerToCoreData(indexPath)
+            self.saveFilerToCoreData(indexPath, caption: text)
         }
         alert.addAction(saveFilterAction)
         alert.addAction(UIAlertAction(title: "Select Another Filter", style: UIAlertActionStyle.Cancel) { (UIAlertAction) -> Void in

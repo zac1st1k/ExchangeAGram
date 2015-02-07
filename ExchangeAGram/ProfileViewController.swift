@@ -20,6 +20,9 @@ class ProfileViewController: UIViewController, FBLoginViewDelegate {
         imageView.hidden = true
 //        label.hidden = true
     }
+    @IBAction func mapTapped(sender: UIButton) {
+        
+    }
     
     func loginViewShowingLoggedInUser(loginView: FBLoginView!) {
         imageView.hidden = false
