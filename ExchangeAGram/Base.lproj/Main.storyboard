@@ -18,7 +18,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mrk-Q7-jGg">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wUo-Jc-6IH">
                                     <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -113,7 +113,6 @@
                                 </state>
                                 <connections>
                                     <action selector="mapTapped:" destination="Zyx-K9-88n" eventType="touchUpInside" id="jaK-he-Pk8"/>
-                                    <segue destination="wZW-mB-dcQ" kind="show" identifier="mapSegue" id="Zih-St-Bkn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -124,6 +123,7 @@
                         <outlet property="fbLoginView" destination="hem-Ir-pir" id="uLF-vf-BYm"/>
                         <outlet property="imageView" destination="u0u-IQ-Umr" id="X83-CM-q8v"/>
                         <outlet property="label" destination="jvy-kK-YjV" id="N00-qc-QoW"/>
+                        <segue destination="wZW-mB-dcQ" kind="show" identifier="mapSegue" id="05x-6e-xYt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztg-n6-sJq" userLabel="First Responder" sceneMemberID="firstResponder"/>

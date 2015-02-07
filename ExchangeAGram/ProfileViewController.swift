@@ -18,10 +18,10 @@ class ProfileViewController: UIViewController, FBLoginViewDelegate {
         self.fbLoginView.delegate = self
         self.fbLoginView.readPermissions = ["public_profile", "publish_actions"]
         imageView.hidden = true
-//        label.hidden = true
     }
+    
     @IBAction func mapTapped(sender: UIButton) {
-        
+        performSegueWithIdentifier("mapSegue", sender: nil)
     }
     
     func loginViewShowingLoggedInUser(loginView: FBLoginView!) {
@@ -29,13 +29,15 @@ class ProfileViewController: UIViewController, FBLoginViewDelegate {
         label.hidden = false
     }
     func loginViewFetchedUserInfo(loginView: FBLoginView!, user: FBGraphUser!) {
-        println(user)
-        label.text = user.name
-        let userImageURL = "https://graph.facebook.com/\(user.objectID)/picture?type=large"
-        let url = NSURL(string: userImageURL)
-        let imageData = NSData(contentsOfURL: url!)
-        let image = UIImage(data: imageData!)
-        imageView.image = image
+        if user != nil {
+            println(user)
+            label.text = user.name
+            let userImageURL = "https://graph.facebook.com/\(user.objectID)/picture?type=small"
+            let url = NSURL(string: userImageURL)
+            let imageData = NSData(contentsOfURL: url!)
+            let image = UIImage(data: imageData!)
+            imageView.image = image
+        }
     }
     func loginViewShowingLoggedOutUser(loginView: FBLoginView!) {
         imageView.hidden = true

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1111CAFA1A859DC000567593 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1111CAF91A859DC000567593 /* MapViewController.swift */; };
-		1161254B1A837431005A3A9E /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1161254A1A837431005A3A9E /* FeedItem.swift */; };
+		1111CAFC1A85AF2700567593 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1111CAFB1A85AF2700567593 /* FeedItem.swift */; };
 		116509BE1A81102C0021C8F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116509BD1A81102C0021C8F8 /* AppDelegate.swift */; };
 		116509C11A81102C0021C8F8 /* ExchangeAGram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 116509BF1A81102C0021C8F8 /* ExchangeAGram.xcdatamodeld */; };
 		116509C61A81102C0021C8F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 116509C41A81102C0021C8F8 /* Main.storyboard */; };
@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		1111CAF91A859DC000567593 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		1161254A1A837431005A3A9E /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
+		1111CAFB1A85AF2700567593 /* FeedItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		116509B81A81102C0021C8F8 /* ExchangeAGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeAGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		116509BC1A81102C0021C8F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		116509BD1A81102C0021C8F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,12 +97,12 @@
 			children = (
 				116509BD1A81102C0021C8F8 /* AppDelegate.swift */,
 				11B410261A8118490066E99B /* FeedViewController.swift */,
-				116509E21A8116880021C8F8 /* FeedCell.swift */,
-				1161254A1A837431005A3A9E /* FeedItem.swift */,
 				11B4102A1A826BF60066E99B /* FilterViewController.swift */,
-				1111CAF91A859DC000567593 /* MapViewController.swift */,
-				11B4102C1A833A420066E99B /* FilterCell.swift */,
 				11C81E271A848467001A141D /* ProfileViewController.swift */,
+				1111CAF91A859DC000567593 /* MapViewController.swift */,
+				1111CAFB1A85AF2700567593 /* FeedItem.swift */,
+				11B4102C1A833A420066E99B /* FilterCell.swift */,
+				116509E21A8116880021C8F8 /* FeedCell.swift */,
 				11C81E631A848E19001A141D /* Bridging-Header.h */,
 				116509C41A81102C0021C8F8 /* Main.storyboard */,
 				116509C71A81102C0021C8F8 /* Images.xcassets */,
@@ -244,8 +244,8 @@
 				116509BE1A81102C0021C8F8 /* AppDelegate.swift in Sources */,
 				116509E31A8116880021C8F8 /* FeedCell.swift in Sources */,
 				1111CAFA1A859DC000567593 /* MapViewController.swift in Sources */,
+				1111CAFC1A85AF2700567593 /* FeedItem.swift in Sources */,
 				11B410271A8118490066E99B /* FeedViewController.swift in Sources */,
-				1161254B1A837431005A3A9E /* FeedItem.swift in Sources */,
 				11C81E281A848467001A141D /* ProfileViewController.swift in Sources */,
 				116509C11A81102C0021C8F8 /* ExchangeAGram.xcdatamodeld in Sources */,
 			);

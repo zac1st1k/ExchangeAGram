@@ -21,6 +21,8 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "OceanBackGround")!)
+        
         var request = NSFetchRequest(entityName: "FeedItem")
         let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let context:NSManagedObjectContext = appDelegate.managedObjectContext!
@@ -28,11 +30,9 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 100
         locationManager.requestAlwaysAuthorization()
-
         locationManager.startUpdatingLocation()
 
     }
@@ -103,6 +103,8 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         feedItem.image = imageData
         feedItem.caption = image.description
         feedItem.thumbNail = thumbNailData
+        feedItem.longitude = locationManager.location.coordinate.longitude
+        feedItem.latitude = locationManager.location.coordinate.latitude
         
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
         feedArray.append(feedItem)

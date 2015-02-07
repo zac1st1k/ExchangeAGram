@@ -129,7 +129,9 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         let filteredImage = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
         let imageData = UIImageJPEGRepresentation(filteredImage, 1.0)
         thisFeedItem.image = imageData
-        let filteredthumbNail = self.filteredImageFromImage(thisFeedItem.image, filter: filters[indexPath.row])
+        
+        //MARK: - **NEED TO BE FIXED, THUMBNAIL HSA NOT NOT SCAELED YET
+        let filteredthumbNail = self.filteredImageFromImage(thisFeedItem.thumbNail, filter: filters[indexPath.row])
         let thumbNailData = UIImageJPEGRepresentation(filteredthumbNail, 1.0)
         thisFeedItem.thumbNail = thumbNailData
         thisFeedItem.caption = caption
@@ -174,6 +176,8 @@ class FilterViewController: UIViewController, UICollectionViewDelegate, UICollec
         var Cachedimage:UIImage
         if NSFileManager.defaultManager().fileExistsAtPath(uniquePath) {
             Cachedimage = UIImage(contentsOfFile: uniquePath)!
+            //rotate image only found when post images to facebook should move this line of code elsewhere
+//            let image = UIImage(CGImage: returnedImage.CGImage, scale: 1.0, orientation: UIImageOrientation.Right)
         }
         else {
             self.cacheImage(rowNumber)
